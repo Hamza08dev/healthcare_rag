@@ -117,7 +117,9 @@ const ChatbotUI = () => {
           backgroundColor: "#fee",
           color: "#c33",
           borderRadius: "8px",
-          fontSize: "14px"
+          fontSize: "14px",
+          position: "relative",
+          zIndex: 5
         }}>
           {error}
         </div>
@@ -125,11 +127,19 @@ const ChatbotUI = () => {
       {isUploading && (
         <div style={{
           padding: "12px",
-          margin: "12px",
+          margin: "12px 12px 12px 12px",
+          marginTop: "80px",
           backgroundColor: "#eef",
           color: "#336",
           borderRadius: "8px",
-          fontSize: "14px"
+          fontSize: "14px",
+          position: "fixed",
+          top: "80px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 9,
+          maxWidth: "600px",
+          width: "calc(100% - 24px)"
         }}>
           Processing document...
         </div>
