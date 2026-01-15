@@ -12,7 +12,8 @@ interface Message {
 }
 
 // Get API URL from environment variable, fallback to localhost for development
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// Remove trailing slash to avoid double slashes in URLs
+const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
 
 const ChatbotUI = () => {
   const [messages, setMessages] = useState<Message[]>([]);
