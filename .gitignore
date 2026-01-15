@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend (node_modules is already in business-chat-interface-main/.gitignore)
+business-chat-interface-main/node_modules/
+business-chat-interface-main/dist/
+business-chat-interface-main/.env.local
+
+# Streamlit (legacy)
+.streamlit/secrets.toml
+
+# ChromaDB (if persistent)
+chroma_db/
+
+# Logs
+*.log

@@ -1,0 +1,345 @@
+<!--
+  =========================================
+  BUSINESS OPTIMA CHATBOT UI
+  Plain HTML/CSS for Streamlit Implementation
+  =========================================
+  
+  This file contains the HTML structure and CSS styles
+  you can adapt for your Streamlit RAG chatbot.
+  
+  CSS class names are simple and can be mapped to
+  Streamlit's st.markdown() with unsafe_allow_html=True
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Optima Chatbot</title>
+  <style>
+    /* =========================================
+       BASE STYLES & VARIABLES
+       ========================================= */
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg-main: #f5f5f5;
+      --bg-card: #ffffff;
+      --text-primary: #333333;
+      --text-secondary: #808080;
+      --text-muted: #8c8c8c;
+      --border-color: #e0e0e0;
+      --btn-primary: #262626;
+      --btn-primary-hover: #404040;
+      --btn-disabled: #cccccc;
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --radius-full: 24px;
+      --radius-message: 20px;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    
+    /* =========================================
+       LAYOUT STRUCTURE
+       ========================================= */
+    
+    .chatbot-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    /* =========================================
+       HEADER
+       ========================================= */
+    
+    .chat-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: var(--bg-main);
+    }
+    
+    .header-logo img {
+      height: 40px;
+      width: auto;
+    }
+    
+    /* =========================================
+       MAIN CHAT AREA
+       ========================================= */
+    
+    .chat-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    /* =========================================
+       WELCOME SCREEN
+       ========================================= */
+    
+    .chat-welcome {
+      text-align: center;
+      max-width: 600px;
+    }
+    
+    .welcome-heading {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    
+    /* =========================================
+       MESSAGES
+       ========================================= */
+    
+    .chat-messages {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 20px;
+    }
+    
+    .chat-message {
+      display: flex;
+      width: 100%;
+    }
+    
+    .chat-message-user {
+      justify-content: flex-end;
+    }
+    
+    .chat-message-assistant {
+      justify-content: flex-start;
+    }
+    
+    .message-content {
+      max-width: 80%;
+      padding: 14px 18px;
+      border-radius: var(--radius-message);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .chat-message-user .message-content {
+      background-color: var(--btn-primary);
+      color: #ffffff;
+      border-bottom-right-radius: 6px;
+    }
+    
+    .chat-message-assistant .message-content {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      border-bottom-left-radius: 6px;
+      box-shadow: var(--shadow-card);
+    }
+    
+    /* =========================================
+       INPUT AREA
+       ========================================= */
+    
+    .chat-input-container {
+      padding: 16px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--bg-main);
+    }
+    
+    .chat-input-card {
+      width: 100%;
+      max-width: 680px;
+      background-color: var(--bg-card);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: flex-end;
+      padding: 12px 14px;
+      gap: 10px;
+    }
+    
+    .chat-textarea {
+      flex: 1;
+      border: none;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      font-family: inherit;
+      line-height: 1.5;
+      padding: 6px 8px;
+      background: transparent;
+      color: var(--text-primary);
+      min-height: 24px;
+      max-height: 150px;
+    }
+    
+    .chat-textarea::placeholder {
+      color: var(--text-secondary);
+    }
+    
+    .chat-input-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* Attach/Upload Button */
+    .attach-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+    }
+    
+    .attach-btn:hover {
+      background-color: #f0f0f0;
+      color: #4d4d4d;
+    }
+    
+    /* Send Button */
+    .send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background-color: var(--btn-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.15s ease;
+    }
+    
+    .send-btn:hover {
+      background-color: var(--btn-primary-hover);
+    }
+    
+    .send-btn:disabled {
+      background-color: var(--btn-disabled);
+      cursor: not-allowed;
+    }
+    
+    /* =========================================
+       DISCLAIMER
+       ========================================= */
+    
+    .chat-disclaimer {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    
+    /* =========================================
+       ICONS (SVG inline for simplicity)
+       ========================================= */
+    
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .icon-send {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chatbot-container">
+  
+  <!-- HEADER -->
+  <header class="chat-header">
+    <div class="header-logo">
+      <!-- Replace with your logo path -->
+      <img src="business-optima-logo.png" alt="Business Optima">
+    </div>
+  </header>
+  
+  <!-- MAIN CHAT AREA -->
+  <main class="chat-main">
+    
+    <!-- WELCOME SCREEN (show when no messages) -->
+    <div class="chat-welcome">
+      <h1 class="welcome-heading">What can I help with?</h1>
+    </div>
+    
+    <!-- MESSAGES (hidden when welcome is shown) -->
+    <!-- 
+    <div class="chat-messages">
+      <div class="chat-message chat-message-user">
+        <div class="message-content">
+          Tell me about the Q3 financial report.
+        </div>
+      </div>
+      <div class="chat-message chat-message-assistant">
+        <div class="message-content">
+          Based on the uploaded documents, the Q3 financial report shows...
+        </div>
+      </div>
+    </div>
+    -->
+    
+  </main>
+  
+  <!-- INPUT AREA -->
+  <div class="chat-input-container">
+    <div class="chat-input-card">
+      <textarea 
+        class="chat-textarea" 
+        placeholder="Ask anything"
+        rows="1"
+      ></textarea>
+      <div class="chat-input-actions">
+        <!-- Attach Button with Plus Icon -->
+        <button class="attach-btn" type="button" aria-label="Attach file">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+        <!-- Send Button with Arrow Icon -->
+        <button class="send-btn" type="button" aria-label="Send message">
+          <svg class="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <p class="chat-disclaimer">AI can make mistakes. Please double-check responses.</p>
+  </div>
+  
+</div>
+
+</body>
+</html>
